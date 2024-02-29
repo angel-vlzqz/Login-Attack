@@ -1,4 +1,7 @@
 <?php
+// used to track cookies
+session_start();
+
 // get the values from the submitted form.
 $attempted_username = $_POST['username'];
 $attempted_password = $_POST['pass'];
@@ -23,9 +26,16 @@ if ($loggedIn == TRUE)
 {
   echo "Welcome, $attempted_username!";
   echo "click <a href='securepage.php'>Here</a> to enter the secure page.";
+
+  // set a cookie to indicate the user is logged in
+  $_SESSION['login_name'] = $attempted_username;
 }
 else
 {
   echo "Login failed.";
+  echo "click <a href='login.php'>Here</a> to try again.";
+  
+  // log the person out
+  session_destroy();
 }
 ?>
